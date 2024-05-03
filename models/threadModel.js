@@ -1,4 +1,5 @@
 const mongo = require("mongoose");
+const { repliesSchema } = require("./repliesModel");
 
 const threadSchema = mongo.Schema({
   _id: {
@@ -23,9 +24,9 @@ const threadSchema = mongo.Schema({
     default: false,
     require: true,
   },
-  replies: [RepliesSchema],
+  replies: [repliesSchema],
 });
 
 const Thread = mongo.model("Thread", threadSchema);
 
-module.exports = Thread;
+module.exports = { Thread: Thread, threadSchema: threadSchema };
