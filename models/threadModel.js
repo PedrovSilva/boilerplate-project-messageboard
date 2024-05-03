@@ -1,13 +1,17 @@
 "use strict";
 
 const mongo = require("mongoose");
-const { repliesSchema } = require("./repliesModel");
+const { Replies, repliesSchema } = require("./repliesModel");
 const { setPassword, validatePassword } = require("../utils/auth");
 
 const threadSchema = mongo.Schema({
   _id: {
     type: mongo.Schema.Types.ObjectId,
     auto: true,
+  },
+  board: {
+    type: mongo.Schema.Types.ObjectId,
+    ref: "Replies",
   },
   delete_password: String,
   text: {

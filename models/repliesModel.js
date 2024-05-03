@@ -2,12 +2,17 @@
 
 const mongo = require("mongoose");
 const { setPassword, validatePassword } = require("../utils/auth");
+const {Thread} = require("./threadModel")
 
 const repliesSchema = new mongo.Schema(
   {
     _id: {
       type: mongo.Schema.Types.ObjectId,
       auto: true,
+    },
+    thread: {
+      type: mango.Schema.Types.ObjectId,
+      ref: "Thread"
     },
     text: {
       type: String,
