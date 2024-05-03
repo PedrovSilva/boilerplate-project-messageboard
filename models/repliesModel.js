@@ -1,28 +1,38 @@
-const mongo = require("mongoose");
+"use strict";
 
-const repliesSchema = new mongo.Schema({
-  _id: {
-    type: mongo.Schema.Types.ObjectId,
-    auto: true,
+const mongo = require("mongoose");
+const { setPassword, validatePassword } = require("../utils/auth");
+
+const repliesSchema = new mongo.Schema(
+  {
+    _id: {
+      type: mongo.Schema.Types.ObjectId,
+      auto: true,
+    },
+    text: {
+      type: String,
+      require: true,
+    },
+    created_on: {
+      type: Date,
+      default: Date.now,
+      require: true,
+    },
+    delete_password: {
+      type: String,
+      require: true,
+    },
+    reported: {
+      type: Boolean,
+      default: false,
+      require: true,
+    },
   },
-  text: {
-    type: String,
-    require: true,
-  },
-  created_on: {
-    type: Date.now,
-    require: true,
-  },
-  delete_password: {
-    type: String,
-    require: true,
-  },
-  reported: {
-    type: Boolean,
-    default: false,
-    require: true,
-  },
-});
+  { getters: true }
+);
+
+repliesSchema.methods.setPassword = setPassword;
+repliesSchema.methods.validatePassword = validatePassword;
 
 const Replies = mongo.model("Replies", repliesSchema);
 

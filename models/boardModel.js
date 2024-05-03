@@ -1,3 +1,5 @@
+'use strict';
+
 const mongo = require("mongoose");
 const { threadSchema } = require("./threadModel");
 
@@ -9,6 +11,7 @@ const boardSchema = mongo.Schema({
   boardName: {
     type: String,
     require: true,
+    unique: true,
   },
   threads: [threadSchema],
 });

@@ -1,5 +1,8 @@
+"use strict";
+
 const mongo = require("mongoose");
 const { repliesSchema } = require("./repliesModel");
+const { setPassword, validatePassword } = require("../utils/auth");
 
 const threadSchema = mongo.Schema({
   _id: {
@@ -12,7 +15,8 @@ const threadSchema = mongo.Schema({
     require: true,
   },
   created_on: {
-    type: Date.now,
+    type: Date,
+    default: Date.now,
     require: true,
   },
   bumped_on: {
@@ -26,6 +30,10 @@ const threadSchema = mongo.Schema({
   },
   replies: [repliesSchema],
 });
+
+threadSchema.methods.setPassword = setPassword;
+
+threadSchema.methods.validatePassword = validatePassword;
 
 const Thread = mongo.model("Thread", threadSchema);
 
