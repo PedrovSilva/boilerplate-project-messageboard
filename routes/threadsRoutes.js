@@ -50,6 +50,25 @@ router
       console.error(err);
       res.status(500).json({ error: "Server error" });
     }
+  })
+  .delete(async (req, res) => {
+    try {
+      const board = await Board.findOne({ boardName: req.params.board });
+      if (!board) {
+        return res.status(404).json({ error: "Board not found" });
+      }
+      const thread = board.threads._id(req.body.thread_id);
+
+      if (thread.validatePassword(req.body.delete_password)) {
+        thread.remove();
+        await board.save();
+
+        res.json({ success: "Success" });
+      }
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: "Server error" });
+    }
   });
 
 module.exports = router;
