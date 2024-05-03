@@ -16,8 +16,9 @@ router.route("/api/threads/:board").post(async (req, res) => {
     const newThread = new Thread({ text: req.body.text });
     newThread.setPassword(req.body.delete_password);
 
-    await newThread.save();
+    board.threads.push(newThread)
+    await board.save()
   } catch (err) {
     console.error(err);
   }
-});
+}).get()

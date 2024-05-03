@@ -10,10 +10,6 @@ const repliesSchema = new mongo.Schema(
       type: mongo.Schema.Types.ObjectId,
       auto: true,
     },
-    thread: {
-      type: mango.Schema.Types.ObjectId,
-      ref: "Thread"
-    },
     text: {
       type: String,
       require: true,

@@ -9,10 +9,6 @@ const threadSchema = mongo.Schema({
     type: mongo.Schema.Types.ObjectId,
     auto: true,
   },
-  board: {
-    type: mongo.Schema.Types.ObjectId,
-    ref: "Replies",
-  },
   delete_password: String,
   text: {
     type: String,
